@@ -1,20 +1,18 @@
+using MessageBroker.Common;
+
 namespace MessageBroker;
 
 public class Worker : BackgroundService
 {
-    private readonly ILogger<Worker> _logger;
+    private readonly IListener listener;
 
-    public Worker(ILogger<Worker> logger)
+    public Worker(IListener listener)
     {
-        _logger = logger;
+        this.listener = listener;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(1000, stoppingToken);
-        }
+        listener.Start(stoppingToken);
     }
 }
