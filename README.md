@@ -1,2 +1,2 @@
 # message-broker
-Asynchronous message broker
+AMQP message broker
